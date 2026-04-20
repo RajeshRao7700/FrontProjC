@@ -36,8 +36,14 @@ useEffect(() => {
 
   // Handle change
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  setForm({
+    ...form,
+    [e.target.name]:
+      e.target.name === "conferenceId"
+        ? Number(e.target.value)
+        : e.target.value
+  });
+};
 
   // Submit
   const handleSubmit = async (e) => {
@@ -112,11 +118,14 @@ useEffect(() => {
   required
 >
   <option value="">Select Conference</option>
-  {conferences.map((conf) => (
-    <option key={conf.id} value={String(conf.id)}>
-      {conf.name}
-    </option>
-  ))}
+
+  {conferences && conferences.length > 0 &&
+    conferences.map((conf) => (
+      <option key={conf.id} value={conf.id}>
+        {conf.name}
+      </option>
+    ))
+  }
 </select>
 
         {/* Registered At */}
